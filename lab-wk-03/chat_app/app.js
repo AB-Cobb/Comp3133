@@ -17,10 +17,16 @@ server = app.listen(3000)
 //Socket
 const chat_io = require("socket.io")(server)
 
+messages = [];
+
 //listen to everything
 chat_io.on('connection', (socket) => {
     console.log('New user connected')
-
+    for (message in messages){
+        console.log(message)
+        socket.emit ("new_message",
+            {message : messages[message].message, username : messages[message].username})
+    }
     //defalt name
     socket.username = "Anonymouse"
 
@@ -32,8 +38,9 @@ chat_io.on('connection', (socket) => {
 
     //listen to new message
     socket.on("new_message", (data) => {
-        console.log("message")
-        chat_io.sockets.emit ("new_message", 
-            {message : data.message, username : data.username});
+        message = {message : data.message, username : socket.username};
+        messages.push(message);
+        //console.log(messages)
+        chat_io.sockets.emit ("new_message", message);
     })
 })
