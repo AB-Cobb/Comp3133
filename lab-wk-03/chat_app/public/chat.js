@@ -19,18 +19,24 @@ $(function(){
 
     //send message
     send_message.click(function (){
-        if (username.val() != name){
-            socket.emit("change_username", {username : username.val()})
-            name = username.val();
+        if (message.val() !== ""){
+            if (username.val() != name){
+                if (username.val() == ""){
+                    name = "Anonymouse";
+                } else {
+                    name = username.val();
+                }
+                socket.emit("change_username", {username : name})
+            }
+            console.log(message.val())
+            socket.emit('new_message', {message : message.val(), username : username.val()})
         }
-        console.log(message.val())
-        socket.emit('new_message', {message : message.val(), username : username.val()})
     })
 
     //receive message
     socket.on("new_message", (data) => {
         console.log(data)
-        chatroom.append("<div class='message'><span>"+ data.username
+        chatroom.append("<div class='message' style='background-color : "+data.color+"'><span>"+ data.username
             +":</span><p class='message_content'>"+ data.message +"</p></div>")
     })
 });

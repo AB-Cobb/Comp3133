@@ -18,15 +18,29 @@ server = app.listen(3000)
 const chat_io = require("socket.io")(server)
 
 messages = [];
+colors = ["#035",
+          "#050",
+          "#500",
+          "#505",
+          "#550",
+          "#005"]
+numuser = 0;
+
 
 //listen to everything
 chat_io.on('connection', (socket) => {
     console.log('New user connected')
+    //set color
+    console.log(numuser)
+    socket.color = colors[numuser%colors.length]
+    numuser++;
+    // send new user messages
     for (message in messages){
-        console.log(message)
         socket.emit ("new_message",
-            {message : messages[message].message, username : messages[message].username})
+            {message : messages[message].message, username : messages[message].username, color : messages[message].color}
+        )
     }
+
     //defalt name
     socket.username = "Anonymouse"
 
@@ -38,9 +52,14 @@ chat_io.on('connection', (socket) => {
 
     //listen to new message
     socket.on("new_message", (data) => {
-        message = {message : data.message, username : socket.username};
+        message = {message : data.message, username : socket.username, color : socket.color};
         messages.push(message);
         //console.log(messages)
         chat_io.sockets.emit ("new_message", message);
     })
 })
+
+chat_io.on('disconnect', function (data){
+    console.log ("Client disconnected");
+    numuser--;
+});
