@@ -10,6 +10,9 @@ app.get ('/', (req, res) => {
     //res.send('Hello Internet!')
     res.render('index')
 })
+app.get ("/general", (req, res) => {
+    res.render('chatrm')
+})
 
 //PORTS
 server = app.listen(3000)
