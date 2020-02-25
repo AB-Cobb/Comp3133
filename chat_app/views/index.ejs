@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" const="text/html;charset=UTF-8" />
+    <link href="http://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="style.css" >
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <title>Super Chat App</title>
+  </head>
+
+  <body>
+    <header>
+      <h1><span id="green">S</span>uper <span id="green">C</span>hat</h1>
+    </header>
+    <main>
+    <aside>
+        <ul class="rm-links" >
+          <li><a href="/general">Room 1</a></li>
+          <li class="active"><a href="/tech" >Room 2</a></liclass="active">
+          <li><a href="">Room 3</a href="?rm=3"></li>
+          <li><a href="">Room 4</a href="?rm=4"></li>
+        </ul>
+    </aside>
+
+    <section id="chatroom">
+      <section id="feedback"></section>
+    </section>
+  </main>
+  <footer>
+      <section id="user_input">
+        <div>
+          <span> Posting as: </span>
+          <input id="username" type="text" value="Anonymouse"/>
+
+        </div>
+        <div id="input_zone">
+          <input id="message"  type="text" />
+          <button id="send_message" type="button">Send</button>
+        </div>
+      </section>
+            <p id="copy">&copy;2020 Andrew Cobb</p>
+      </footer>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="chat.js"></script>
+  </body>
+</html>

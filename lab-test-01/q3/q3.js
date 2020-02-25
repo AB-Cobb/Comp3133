@@ -5,16 +5,20 @@ const logpath = path.join(__dirname, 'logs')
 function removeLogs(){
     return new Promise ((resolve, reject) =>{
         try {
-            fs.readdir(logpath, (err, files) => {
-                if (err) throw err;
-            
-                files.forEach(file => {
-                    console.log("deleting " + file )
-                    fs.unlink(path.join(logpath, file), err => {
-                        if (err) throw err;
-                    });
+            if (fs.existsSync(logpath)){
+                fs.readdirSync(logpath, (err, files) => {
+                    if (err) throw err;
+                
+                    files.forEach(file => {
+                        console.log("deleting " + file )
+                        fs.unlinkSync(path.join(logpath, file), err => {
+                            if (err) throw err;
+                        });
+                    })
+                    fs.rmdirSync("logs")
                 })
-            });
+                
+            }
             resolve();
         } catch (err) {
             reject(err)
@@ -26,28 +30,29 @@ function createLogs(){
     return new Promise ((resolve, reject) =>{
         try {
             if (! fs.existsSync(logpath)) {
-                fs.mkdir(logs)
+                fs.mkdirSync("logs")
             }
             process.chdir('logs');
             for (let i = 0; i < 10; i++){
-                fs.writeFile("log_" + i, "first log\n", function(err) {
+                fs.writeFileSync("log_" + i, "first log\n", function(err) {
                     if(err) {
-                        return console.log(err);
+                        throw err;
                     }
-                    console.log("log_" + i + " created");
+                    console.log("created log_" + i);
                 });
                 for (let j = 0; j < i; j++){
-                    fs.appendFile("log_" + i, "new log\n", function(err) {
+                    fs.appendFileSync("log_" + i, "new log\n", function(err) {
                         if(err) {
-                            return console.log(err);
+                            throw err;
                         }
                     });
                 }
             }
+            fs.fsync
             resolve();
         } catch (err) {
             reject(err);
         }
     })
 }
-removeLogs().then(()=> createLogs());
+removeLogs().then( result => createLogs());
