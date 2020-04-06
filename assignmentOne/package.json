@@ -1,0 +1,20 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "term project for comp 3133",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "author": "Andrew Cobb",
+  "license": "ISC",
+  "dependencies": {
+    "@types/socket.io-client": "^1.4.32",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.3",
+    "react-router-dom": "^6.0.0-alpha.2",
+    "socket.io": "^2.3.0"
+  }
+}

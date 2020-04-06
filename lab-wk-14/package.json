@@ -1,0 +1,15 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "Week 14 lab",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Andrew cobb",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^25.2.7"
+  }
+}
